@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Namrata 💖</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+font-family:'Segoe UI',sans-serif;
+background:#000;
+color:white;
+overflow:hidden;
+scroll-behavior:smooth;
+}
+
+/* Background */
+.bg{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+overflow:hidden;
+z-index:-3;
+}
+.wall{
+position:absolute;
+width:200%;
+height:200%;
+display:grid;
+grid-template-columns:repeat(8,1fr);
+grid-auto-rows:180px;
+animation:move 120s linear infinite;
+}
+.wall img{
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0.85;
+filter:blur(0.6px);
+}
+@keyframes move{
+0%{transform:translate(0,0);}
+100%{transform:translate(-20%,-20%);}
+}
+.overlay{
+position:fixed;
+width:100%;height:100%;
+background:radial-gradient(circle,rgba(0,0,0,0.2),rgba(0,0,0,0.75));
+z-index:-2;
+}
+
+/* LOCK SCREEN */
+#lockScreen{
+position:fixed;
+top:0;left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+text-align:center;
+}
+#countdown{
+font-size:2.5em;
+margin-top:20px;
+color:#ff4da6;
+text-shadow:0 0 20px #ff69b4;
+}
+
+/* Intro */
+.intro{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+.intro h1{
+font-size:3em;
+color:#ff4da6;
+margin-bottom:20px;
+text-shadow:0 0 25px #ff69b4;
+}
+
+.startBtn{
+padding:15px 40px;
+border:none;
+border-radius:40px;
+background:linear-gradient(45deg,#ff2e88,#ff6ec7);
+color:white;
+cursor:pointer;
+font-size:1.1em;
+transition:0.4s;
+}
+.startBtn:hover{
+transform:scale(1.1);
+}
+
+/* Cake */
+.cakeSection{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.cake{
+position:relative;
+width:260px;
+height:260px;
+margin-top:40px;
+}
+
+.layerCake{
+width:260px;
+height:100px;
+background:#ff4da6;
+border-radius:20px;
+position:absolute;
+bottom:0;
+}
+.layerCake:nth-child(2){
+bottom:100px;
+background:#ff85c1;
+}
+
+.candle{
+width:18px;height:70px;
+background:white;
+position:absolute;
+top:-70px;
+left:121px;
+cursor:pointer;
+}
+
+.flame{
+width:22px;height:22px;
+background:yellow;
+border-radius:50%;
+position:absolute;
+top:-22px;
+left:-2px;
+animation:flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
+}
+
+/* Message Card */
+.card{
+max-width:850px;
+margin:100px auto;
+padding:60px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+border-radius:30px;
+box-shadow:0 0 60px rgba(255,77,166,0.4);
+opacity:0;
+transform:translateY(50px);
+transition:1s ease;
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card p{
+line-height:1.9em;
+font-size:1.1em;
+}
+
+.surpriseBtn{
+margin-top:30px;
+padding:14px 40px;
+border:none;
+border-radius:40px;
+background:linear-gradient(45deg,#ff2e88,#ff6ec7);
+color:white;
+cursor:pointer;
+}
+
+/* Fireworks */
+.fire{
+position:fixed;
+width:6px;height:6px;
+background:#ff4da6;
+border-radius:50%;
+animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+to{transform:translate(var(--x),var(--y));opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="birthday.mp3" loop></audio>
+
+<div id="lockScreen">
+<h1>Namrata's Birthday Countdown 🎂</h1>
+<div id="countdown"></div>
+<p style="margin-top:20px;opacity:0.7;">Unlocking at 12:00 AM ✨</p>
+</div>
+
+<div class="bg"><div class="wall" id="wall"></div></div>
+<div class="overlay"></div>
+
+<div class="intro">
+<h1>Happy Birthday Namrata 🎂✨</h1>
+<button class="startBtn" onclick="startStory()">Start 💖</button>
+</div>
+
+<div class="cakeSection" id="cakeSection">
+<h2>Blow the Candle 🎂</h2>
+<div class="cake">
+<div class="layerCake"></div>
+<div class="layerCake"></div>
+
+<div class="candle" onclick="blow()">
+<div class="flame" id="flame"></div>
+</div>
+
+</div>
+</div>
+
+<div class="card" id="story">
+
+<p>
+17 saal ki ho gayi madam ji… officially thodi si mature hone ka time aa gaya hai,  
+lekin honestly… <b>never change, Mere samne Bachi hi ban ke rhe</b> 😂💖  
+
+<br><br>
+
+Tu sirf meri bestie nahi hai... tu meri daily crime partner,  
+meri therapist, meri personal comedian aur kabhi kabhi meri headache bhi hai 🤭💗  
+
+<br><br>
+
+Thank you for being the most cute, pagal, emotional, drama queen  
+aur sabse pyaari insaan ever 🥹💖  
+
+<br><br>
+
+Aaj ke din bas ye wish karta hoon ki teri life me success ho, happiness ho,  
+thoda sa drama ho, aur sabse important — tera smile kabhi kam na ho ✨  
+
+<br><br>
+
+Meri sari galtiyo ke liye please mujhe maaf kar dena 💕  
+
+<br><br>
+
+FROM: Harshit
+
+</p>
+
+<center>
+<button class="surpriseBtn" onclick="surprise()">Surprise 🎆</button>
+</center>
+
+</div>
+
+<script>
+
+/* ALWAYS START FROM TOP */
+window.onbeforeunload=function(){
+window.scrollTo(0,0);
+};
+
+/* SAFE IMAGE LOADER */
+function createSafeImage(src){
+return new Promise((resolve,reject)=>{
+let img=new Image();
+img.onload=()=>resolve(src);
+img.onerror=()=>reject(src);
+img.src=src;
+});
+}
+
+/* BACKGROUND PHOTOS */
+let wall=document.getElementById("wall");
+let photos=[];
+
+for(let i=1;i<=24;i++){
+photos.push("photo"+i+".jpg");
+}
+
+function shuffle(arr){
+for(let i=arr.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[arr[i],arr[j]]=[arr[j],arr[i]];
+}
+return arr;
+}
+
+async function loadBackground(){
+
+let validPhotos=[];
+
+for(let p of photos){
+try{
+await createSafeImage(p);
+validPhotos.push(p);
+}catch{}
+}
+
+shuffle(validPhotos);
+
+for(let i=0;i<70;i++){
+if(validPhotos.length===0) return;
+
+let img=document.createElement("img");
+img.src=validPhotos[i%validPhotos.length];
+img.onerror=function(){this.remove();};
+
+wall.appendChild(img);
+}
+
+}
+
+loadBackground();
+
+/* COUNTDOWN */
+let birthday=new Date(2026,2,16,0,0,0).getTime();
+
+let timer=setInterval(function(){
+
+let now=new Date().getTime();
+let distance=birthday-now;
+
+if(distance<=0){
+
+clearInterval(timer);
+document.getElementById("lockScreen").style.display="none";
+document.getElementById("bgMusic").play();
+document.body.style.overflow="auto";
+fireworks();
+
+return;
+
+}
+
+let d=Math.floor(distance/(1000*60*60*24));
+let h=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+let m=Math.floor((distance%(1000*60*60))/(1000*60));
+let s=Math.floor((distance%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+d+"d "+h+"h "+m+"m "+s+"s";
+
+},1000);
+
+/* RESET ON LOAD */
+window.onload=function(){
+
+window.scrollTo(0,0);
+
+let music=document.getElementById("bgMusic");
+music.pause();
+music.currentTime=0;
+
+document.getElementById("flame").style.display="block";
+
+let card=document.getElementById("story");
+card.classList.remove("show");
+
+document.querySelectorAll(".rainPhoto").forEach(p=>p.remove());
+
+};
+
+/* START STORY */
+function startStory(){
+
+let music=document.getElementById("bgMusic");
+
+music.play().catch(()=>{});
+
+document.getElementById("cakeSection").scrollIntoView({behavior:'smooth'});
+
+}
+
+/* BLOW CANDLE */
+function blow(){
+
+document.getElementById("flame").style.display="none";
+
+alert("Make a wish Namrata 💖✨");
+
+let card=document.getElementById("story");
+
+card.classList.add("show");
+
+card.scrollIntoView({behavior:'smooth'});
+
+}
+
+/* FIREWORKS */
+function fireworks(){
+
+for(let i=0;i<120;i++){
+
+let f=document.createElement("div");
+
+f.classList.add("fire");
+
+f.style.left=window.innerWidth/2+"px";
+f.style.top=window.innerHeight/2+"px";
+
+f.style.setProperty("--x",(Math.random()*800-400)+"px");
+f.style.setProperty("--y",(Math.random()*800-400)+"px");
+
+document.body.appendChild(f);
+
+setTimeout(()=>f.remove(),1000);
+
+}
+
+}
+
+/* PHOTO RAIN */
+async function surprise(){
+
+fireworks();
+
+let validPhotos=[];
+
+for(let i=1;i<=24;i++){
+
+try{
+
+await createSafeImage("photo"+i+".jpg");
+
+validPhotos.push("photo"+i+".jpg");
+
+}catch{}
+
+}
+
+shuffle(validPhotos);
+
+let index=0;
+
+let interval=setInterval(()=>{
+
+if(index>=validPhotos.length){
+clearInterval(interval);
+return;
+}
+
+let img=document.createElement("img");
+
+img.classList.add("rainPhoto");
+
+img.src=validPhotos[index++];
+
+img.style.position="fixed";
+img.style.width="160px";
+img.style.height="160px";
+img.style.objectFit="cover";
+img.style.borderRadius="20px";
+img.style.left=Math.random()*90+"vw";
+img.style.top="-200px";
+img.style.zIndex="50";
+img.style.boxShadow="0 0 30px rgba(255,105,180,0.9)";
+img.style.transition="top 7s linear, transform 7s linear";
+
+document.body.appendChild(img);
+
+setTimeout(()=>{
+img.style.top="110vh";
+img.style.transform="rotate(360deg)";
+},50);
+
+setTimeout(()=>img.remove(),7000);
+
+},500);
+
+}
+
+</script>
+
+</body>
+</html>
